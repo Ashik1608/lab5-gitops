@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: lab5-prod
+
+resources:
+- ../../base
+
+replicas:
+- name: final-app
+  count: 3
+
+images:
+- name: nginx
+  newTag: "1.26"
+
+configMapGenerator:
+- name: final-app-config
+  behavior: merge
+  literals:
+  - APP_ENV=production
